@@ -137,10 +137,8 @@ impl NetworkManager {
         }
 
         // --- New Custom Headers ---
-        if let Ok(uid) = machine_uid::get() {
-            if let Ok(val) = HeaderValue::from_str(&uid) {
-                headers.insert("x-hwid", val);
-            }
+        if let Some(val) = machine_uid::get().ok().and_then(|uid| HeaderValue::from_str(&uid).ok()) {
+            headers.insert("x-hwid", val);
         }
 
         let info = os_info::get();
