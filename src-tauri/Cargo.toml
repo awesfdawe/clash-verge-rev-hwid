@@ -30,6 +30,8 @@ identifier = "io.github.clash-verge-rev.clash-verge-rev"
 tauri-build = { version = "2.5.5", features = [] }
 
 [dependencies]
+machine-uid = "0.3"
+os_info = "3"
 clash-verge-draft = { workspace = true }
 clash-verge-logging = { workspace = true }
 clash-verge-signal = { workspace = true }

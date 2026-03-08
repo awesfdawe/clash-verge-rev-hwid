@@ -136,6 +136,21 @@ impl NetworkManager {
             );
         }
 
+        // --- New Custom Headers ---
+        if let Ok(uid) = machine_uid::get() {
+            if let Ok(val) = HeaderValue::from_str(&uid) {
+                headers.insert("x-hwid", val);
+            }
+        }
+
+        let info = os_info::get();
+        if let Ok(val) = HeaderValue::from_str(&info.os_type().to_string()) {
+            headers.insert("x-device-os", val);
+        }
+        if let Ok(val) = HeaderValue::from_str(&info.version().to_string()) {
+            headers.insert("x-ver-os", val);
+        }
+
         let client = self.build_client(proxy_url, headers, accept_invalid_certs, timeout_secs)?;
 
         Ok(client)
